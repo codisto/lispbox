@@ -9,6 +9,7 @@ include GNUmakefile.base
 ifeq ($(os),Linux)
 
 staging-archives/$(THING).tar.gz: $(prefix)/$(THING)
+	mkdir -p staging-archives
 	(cd $(prefix); tar czf - $(THING)) > $@
 
 $(prefix)/$(THING): staging/$(THING)/src/thing

@@ -7,30 +7,60 @@
 # about trailing garbage if not passed the -q flag. And tar doesn't
 # seem to pay attention to the GZIP environment variable.
 
+# Actualised for Linux by Codisto
+
 include GNUmakefile.vars
 
 #LISPBOX_LISP            := sbcl
 LISPBOX_LISP            := clozurecl
-GNU_LINUX_EMACS_VERSION := 23.2
+GNU_LINUX_EMACS_VERSION := 24.3
+# TODO:
 WINDOWS_EMACS_VERSION   := 23.2
-CLISP_VERSION           := 2.41
+CLISP_VERSION           := 2.49
+# TODO:
 ALLEGRO_VERSION         := 70_trial
-SBCL_VERSION            := 1.0.42
-CLOZURECL_VERSION       := 1.5
-CLOZURECL_PLATFORM	:= darwinx86
-CLOZURECL_SCRIPT	:= dx86cl64
-SLIME_VERSION           := 20101009.090831
+SBCL_VERSION            := 1.2.4
+CLOZURECL_VERSION       := 1.10
+# darwinx86, linuxx86, freebsdx86, solarisx86, windows, linuxppc, darwinppc
+#CLOZURECL_PLATFORM	:= darwinx86
+#CLOZURECL_SCRIPT	:= dx86cl64
+SLIME_VERSION           := 2.15
+# TODO:
 PRACTICALS_VERSION      := 1.0.3
-QUICKLISP_VERSION	:= beta-2010-10-09
+QUICKLISP_VERSION	:= 2015-09-24
 
 ifeq ($(os),Linux)
 emacs := emacs-$(GNU_LINUX_EMACS_VERSION)
+CLOZURECL_PLATFORM	:= linuxx86
+CLOZURECL_SCRIPT	:= lx86cl
+lispbox_script_dir := $(prefix)
+emacs_site_lisp    := $(prefix)/$(emacs)/share/emacs/site-lisp
+export LISPBOX_HOME_RELATIVE :=
+export EMACS_EXE := $(emacs)/bin/emacs
+export LINUX=yes
+export GNU_LINUX_EMACS_VERSION := $(GNU_LINUX_EMACS_VERSION)
 endif
+
 ifeq ($(os),Darwin)
 emacs := Emacs.app
+CLOZURECL_PLATFORM	:= darwinx86
+CLOZURECL_SCRIPT	:= dx86cl
+lispbox_script_dir := $(prefix)/Emacs.app/Contents/MacOS
+emacs_lisp    := $(prefix)/Emacs.app/Contents/Resources/lisp
+emacs_site_lisp    := $(prefix)/Emacs.app/Contents/Resources/site-lisp
+export LISPBOX_HOME_RELATIVE := /../../..
+export EMACS_EXE := Emacs.app/Contents/MacOS/Emacs
 endif
+
 ifeq ($(os),Windows)
 emacs := emacs-$(WINDOWS_EMACS_VERSION)
+CLOZURECL_PLATFORM	:= windows
+# TODO:  please correct it, i do not use windows.
+#CLOZURECL_SCRIPT	:= dx86cl64
+lispbox_script_dir := $(prefix)
+emacs_site_lisp    := $(prefix)/$(emacs)/site-lisp
+export LISPBOX_HOME_RELATIVE :=
+export EMACS_EXE := $(emacs)/bin/runemacs.exe
 endif
 
 clisp   := clisp-$(CLISP_VERSION)
@@ -43,26 +73,6 @@ slime      := slime-$(SLIME_VERSION)
 practicals := practicals-$(PRACTICALS_VERSION)
 quicklisp  := quicklisp-$(QUICKLISP_VERSION)
 
-ifeq ($(os),Darwin)
-lispbox_script_dir := $(prefix)/Emacs.app/Contents/MacOS
-emacs_lisp    := $(prefix)/Emacs.app/Contents/Resources/lisp
-emacs_site_lisp    := $(prefix)/Emacs.app/Contents/Resources/site-lisp
-export LISPBOX_HOME_RELATIVE := /../../..
-export EMACS_EXE := Emacs.app/Contents/MacOS/Emacs
-endif
-ifeq ($(os),Linux)
-lispbox_script_dir := $(prefix)
-emacs_site_lisp    := $(prefix)/$(emacs)/share/emacs/site-lisp
-export LISPBOX_HOME_RELATIVE :=
-export EMACS_EXE := $(emacs)/bin/emacs
-export LINUX=yes
-endif
-ifeq ($(os),Windows)
-lispbox_script_dir := $(prefix)
-emacs_site_lisp    := $(prefix)/$(emacs)/site-lisp
-export LISPBOX_HOME_RELATIVE :=
-export EMACS_EXE := $(emacs)/bin/runemacs.exe
-endif
 
 export EMACS := $(emacs)
 
@@ -103,7 +113,9 @@ $(LISPBOX_HOME)-source.tar.gz:
 	cp README.source $(prefix)
 	cp write-lispbox-el.sh $(prefix)
 	cp write-lispbox.sh $(prefix)
+ifeq ($(os),Windows)
 	cp new-lispbox.bat $(prefix)
+endif
 	cp write-site-init-lisp.sh $(prefix)
 	(cd $(TOP); tar czf - $(LISPBOX_HOME)) > $@
 
@@ -193,8 +205,10 @@ endif # not JUST_LISP
 lispbox: $(lisp)
 lispbox: $(prefix)/$(lisp)/lispbox-register.el
 
+ifeq ($(os),Windows)
 $(lispbox_script_dir)/lispbox.bat: lispbox.bat
 	cp $< $@
+endif
 
 $(lispbox_script_dir)/lispbox.sh: write-lispbox.sh $(prefix)
 	SBCL_DIR=$(sbcl) CLOZURECL_DIR=$(clozurecl) $(SH) $< > $@

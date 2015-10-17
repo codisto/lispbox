@@ -24,30 +24,30 @@ fi
 
 if [ ! -z "${LINUX}" ]; then
     cat <<EOF
-export EMACSDATA=\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/etc/
-export EMACSDOC=\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/etc/
+export EMACSDATA=\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/etc/
+export EMACSDOC=\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/etc/
 export EMACSLOADPATH=\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/site-lisp:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/site-lisp:\\
 \${LISPBOX_HOME}/${EMACS}/share/emacs/site-lisp:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/leim:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/toolbar:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/textmodes:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/progmodes:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/play:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/obsolete:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/net:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/mail:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/language:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/international:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/gnus:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/eshell:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/emulation:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/emacs-lisp:\\
-\${LISPBOX_HOME}/${EMACS}/share/emacs/23.2/lisp/calendar
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/leim:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/toolbar:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/textmodes:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/progmodes:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/play:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/obsolete:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/net:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/mail:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/language:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/international:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/gnus:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/eshell:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/emulation:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/emacs-lisp:\\
+\${LISPBOX_HOME}/${EMACS}/share/emacs/${GNU_LINUX_EMACS_VERSION}/lisp/calendar
 
 
-PATH=\$PATH:\${LISPBOX_HOME}/libexec/emacs/23.2/i686-pc-linux-gnu
+PATH=\$PATH:\${LISPBOX_HOME}/libexec/emacs/${GNU_LINUX_EMACS_VERSION}/i686-pc-linux-gnu
 EOF
 
 fi
